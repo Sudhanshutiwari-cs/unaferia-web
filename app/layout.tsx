@@ -3,7 +3,6 @@ import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import { CartProvider } from '@/components/cart-provider'
 import { GlobalHeader } from '@/components/global-header'
-import { WhatsAppButton } from '@/components/whatsapp-button'
 import { BottomNav } from '@/components/bottom-nav'
 import { Toaster } from 'sonner'
 import './globals.css'
@@ -37,7 +36,6 @@ export default function RootLayout({
           <GlobalHeader />
           {children}
           <BottomNav />
-          <WhatsAppButton />
         </CartProvider>
         <Toaster position="bottom-center" richColors closeButton />
         {process.env.NODE_ENV === 'production' && <Analytics />}
