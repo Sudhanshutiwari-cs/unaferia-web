@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { useRouter } from "next/navigation"
 import useSWR from "swr"
 import { MapPin, Search, ShoppingCart, ChevronDown, Menu, LogOut, Package, X, ChevronRight, Loader2, Heart, User } from "lucide-react"
@@ -91,9 +92,15 @@ export function SiteHeader() {
     <header className="bg-navy text-white">
       <div className="mx-auto flex max-w-[1400px] items-center gap-2 px-2 py-2 sm:gap-3 sm:px-4">
         {/* Logo */}
-        <Link href="/" className="flex shrink-0 flex-col leading-none">
-          <span className="text-base font-bold tracking-tight sm:text-xl">SHOURYA</span>
-          <span className="text-base font-bold tracking-tight text-brand sm:text-xl">QUEST</span>
+        <Link href="/" className="flex shrink-0 items-center">
+          <Image
+            src="/images/unaferia-logo.jpg"
+            alt="Unaferia"
+            width={120}
+            height={40}
+            className="h-10 w-auto object-contain"
+            priority
+          />
         </Link>
 
         {/* Deliver to — md+ only */}
@@ -144,7 +151,7 @@ export function SiteHeader() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search products…"
-            aria-label="Search Shourya Quest"
+            aria-label="Search Unaferia"
             className="min-w-0 flex-1 rounded-l-md bg-white px-3 text-sm text-navy placeholder:text-neutral-500 focus:outline-none sm:rounded-none"
           />
           <button

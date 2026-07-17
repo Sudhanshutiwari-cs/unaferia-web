@@ -24,7 +24,7 @@ export async function generateMetadata({
     .eq("slug", slug)
     .maybeSingle()
 
-  const title = (data?.meta_title as string | null) || (data?.title ? `${data.title} | Shourya Quest` : "Product | Shourya Quest")
+  const title = (data?.meta_title as string | null) || (data?.title ? `${data.title} | Unaferia` : "Product | Unaferia")
   const description = (data?.meta_description as string | null) || (data?.description as string | null) || ""
   const keywords = (data?.meta_keywords as string | null) || ""
   const image = data?.thumbnail as string | null
@@ -36,7 +36,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      siteName: "Shourya Quest",
+      siteName: "Unaferia",
       ...(image ? { images: [{ url: image }] } : {}),
     },
     twitter: {

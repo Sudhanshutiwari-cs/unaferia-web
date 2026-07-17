@@ -16,7 +16,7 @@ export async function GET(req: Request) {
 
   // Create admin user through GoTrue Admin API (password is hashed correctly this way)
   const { data, error } = await admin.auth.admin.createUser({
-    email: "admin@shouryaquest.app",
+    email: "admin@unaferia.app",
     password: "Admin@1234",
     email_confirm: true,
     user_metadata: {
@@ -40,7 +40,7 @@ export async function GET(req: Request) {
     .insert({
       id: userId,
       full_name: "Admin",
-      email: "admin@shouryaquest.app",
+      email: "admin@unaferia.app",
       is_admin: true,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),

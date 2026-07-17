@@ -92,7 +92,7 @@ export default function CartPage() {
             <ShoppingCart className="h-12 w-12 text-muted-foreground" aria-hidden="true" />
           </div>
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-foreground">Your Shourya Quest Cart is empty</h1>
+            <h1 className="text-2xl font-bold text-foreground">Your Unaferia Cart is empty</h1>
             <p className="mt-1 text-muted-foreground">Add items from the store to get started</p>
           </div>
           <Link

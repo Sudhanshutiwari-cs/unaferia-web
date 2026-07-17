@@ -1,4 +1,4 @@
-// Mock admin data for the Shourya Quest dashboard.
+// Mock admin data for the Unaferia dashboard.
 // Structured to mirror a Supabase schema so it can be swapped for live queries later.
 
 export type StatAccent = "purple" | "green" | "orange" | "blue"

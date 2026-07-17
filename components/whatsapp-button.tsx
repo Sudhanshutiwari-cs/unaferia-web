@@ -6,7 +6,7 @@ import { X } from "lucide-react"
 // Replace with your actual WhatsApp business number (no + or spaces)
 const WHATSAPP_NUMBER = "919999999999"
 const WHATSAPP_MESSAGE = encodeURIComponent(
-  "Hi! I need help with my Shourya Quest order.",
+  "Hi! I need help with my Unaferia order.",
 )
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`
 

@@ -11,9 +11,9 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
 export const metadata: Metadata = {
-  title: 'Shourya Quest - Online Shopping for Electronics, Fashion & More',
+  title: 'Unaferia - Online Shopping for Electronics, Fashion & More',
   description:
-    'Shourya Quest is your one-stop destination for online shopping in India. Great deals, secure payments and fast delivery on millions of products.',
+    'Unaferia is your one-stop destination for online shopping in India. Great deals, secure payments and fast delivery on millions of products.',
   generator: 'v0.app',
 }
 

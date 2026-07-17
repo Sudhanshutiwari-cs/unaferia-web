@@ -25,13 +25,13 @@ export async function generateMetadata({
   const name = (catRow?.name as string) ?? ""
   const metaTitle =
     (catRow?.meta_title as string | null) ||
-    (name ? `${name} | Shourya Quest` : "Category | Shourya Quest")
+    (name ? `${name} | Unaferia` : "Category | Unaferia")
   const metaDescription =
     (catRow?.meta_description as string | null) ||
-    (name ? `Shop ${name} products on Shourya Quest` : "")
+    (name ? `Shop ${name} products on Unaferia` : "")
   const metaKeywords =
     (catRow?.meta_keywords as string | null) ||
-    (name ? `${name.toLowerCase()}, online shopping, shourya quest` : "")
+    (name ? `${name.toLowerCase()}, online shopping, unaferia` : "")
 
   return {
     title: metaTitle,
@@ -40,7 +40,7 @@ export async function generateMetadata({
     openGraph: {
       title: metaTitle,
       description: metaDescription,
-      siteName: "Shourya Quest",
+      siteName: "Unaferia",
     },
   }
 }

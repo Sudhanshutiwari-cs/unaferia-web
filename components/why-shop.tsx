@@ -12,7 +12,7 @@ const reasons = [
 export function WhyShop() {
   return (
     <section className="rounded-md bg-card p-4">
-      <h2 className="mb-4 text-xl font-bold text-foreground">Why Shop With Shourya Quest?</h2>
+      <h2 className="mb-4 text-xl font-bold text-foreground">Why Shop With Unaferia?</h2>
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
         {reasons.map((r) => {
           const Icon = r.icon

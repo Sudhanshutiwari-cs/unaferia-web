@@ -18,7 +18,7 @@ export function HeroBanner() {
         <div className="order-1 h-36 sm:h-48 md:order-2 md:h-72 lg:h-80">
           <img
             src="/images/hero-audio.png"
-            alt="Wireless headphones and smartwatch on a Shourya Quest delivery box"
+            alt="Wireless headphones and smartwatch on a Unaferia delivery box"
             className="h-full w-full object-cover"
           />
         </div>

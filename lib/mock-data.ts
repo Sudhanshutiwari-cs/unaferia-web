@@ -1,4 +1,4 @@
-// Mock data for the Shourya Quest storefront.
+// Mock data for the Unaferia storefront.
 // This is structured to mirror what a Supabase schema would return, so it can be
 // swapped for live queries later without changing the UI components.
 

@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
 import {
@@ -95,11 +96,14 @@ export function AdminSidebar({ open, onClose }: { open?: boolean; onClose?: () =
         )}
       >
         <div className="flex h-[4.5rem] items-center justify-between px-6">
-          <span className="text-xl font-extrabold leading-tight tracking-tight">
-            SHOURYA
-            <br />
-            <span className="text-brand">QUEST</span>
-          </span>
+          <Image
+            src="/images/unaferia-logo.jpg"
+            alt="Unaferia"
+            width={120}
+            height={36}
+            className="h-9 w-auto object-contain brightness-0 invert"
+            priority
+          />
           {/* Close button — visible on mobile only */}
           <button
             type="button"

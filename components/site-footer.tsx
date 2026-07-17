@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { Play, Apple } from "lucide-react"
 import { NewsletterSection } from "@/components/newsletter-section"
 
@@ -45,7 +46,7 @@ const columns = [
       { label: "About Us", href: "/about" },
       { label: "Careers", href: "#" },
       { label: "Press Releases", href: "#" },
-      { label: "Shourya Quest Cares", href: "#" },
+      { label: "Unaferia Cares", href: "#" },
       { label: "Gift a Smile", href: "#" },
     ],
   },
@@ -72,10 +73,10 @@ const columns = [
 ]
 
 const socials = [
-  { icon: Facebook, label: "Facebook",  href: "https://www.facebook.com/shouryaquest" },
-  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/shouryaquest" },
-  { icon: Twitter,  label: "X (Twitter)", href: "https://x.com/shouryaquest" },
-  { icon: Youtube,  label: "YouTube",   href: "https://www.youtube.com/@shouryaquest" },
+  { icon: Facebook, label: "Facebook",  href: "https://www.facebook.com/unaferia" },
+  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/unaferia" },
+  { icon: Twitter,  label: "X (Twitter)", href: "https://x.com/unaferia" },
+  { icon: Youtube,  label: "YouTube",   href: "https://www.youtube.com/@unaferia" },
 ]
 
 export function SiteFooter() {
@@ -88,12 +89,15 @@ export function SiteFooter() {
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-5">
           {/* Brand */}
           <div className="sm:col-span-2 md:col-span-1">
-            <div className="flex flex-col leading-none">
-              <span className="text-lg font-bold">SHOURYA</span>
-              <span className="text-lg font-bold text-brand">QUEST</span>
-            </div>
+            <Image
+              src="/images/unaferia-logo.jpg"
+              alt="Unaferia"
+              width={120}
+              height={40}
+              className="h-10 w-auto object-contain brightness-0 invert"
+            />
             <p className="mt-4 text-sm leading-relaxed text-white/70">
-              Shourya Quest is your one-stop destination for online shopping in India. Shop from a
+              Unaferia is your one-stop destination for online shopping in India. Shop from a
               wide range of products with great deals, secure payments and fast delivery.
             </p>
           </div>
@@ -117,7 +121,7 @@ export function SiteFooter() {
           <div>
             <h3 className="mb-3 text-sm font-bold text-white">Download the App</h3>
             <p className="mb-3 text-sm text-white/70">
-              Get the Shourya Quest app on your mobile
+              Get the Unaferia app on your mobile
             </p>
             <div className="flex flex-col gap-2">
               <a
@@ -173,7 +177,7 @@ export function SiteFooter() {
             <Link href="/refund-policy" className="hover:text-white hover:underline">Refund &amp; Return Policy</Link>
             <Link href="/contact" className="hover:text-white hover:underline">Contact Us</Link>
           </div>
-          <p>© 2025 Shourya Quest. All rights reserved.</p>
+          <p>© 2025 Unaferia. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -11,9 +11,9 @@ const sections = [
   {
     id: "acceptance",
     title: "1. Acceptance of Terms",
-    content: `By accessing or using the Shourya Quest platform (website, mobile application, or any associated service), you agree to be bound by these Terms and Conditions ("Terms"). If you do not agree to these Terms, please do not use our services.
+    content: `By accessing or using the Unaferia platform (website, mobile application, or any associated service), you agree to be bound by these Terms and Conditions ("Terms"). If you do not agree to these Terms, please do not use our services.
 
-These Terms constitute a legally binding agreement between you and Shourya Quest Private Limited, a company incorporated under the laws of India. We reserve the right to update these Terms at any time, and continued use of the platform after any changes constitutes your acceptance of the new Terms.`,
+These Terms constitute a legally binding agreement between you and Unaferia Private Limited, a company incorporated under the laws of India. We reserve the right to update these Terms at any time, and continued use of the platform after any changes constitutes your acceptance of the new Terms.`,
   },
   {
     id: "account",
@@ -22,19 +22,19 @@ These Terms constitute a legally binding agreement between you and Shourya Quest
 
 • Provide accurate, current, and complete information during registration.
 • Maintain the confidentiality of your password and take responsibility for all activities under your account.
-• Notify us immediately at support@shouryaquest.in if you suspect unauthorised use of your account.
+• Notify us immediately at support@unaferia.in if you suspect unauthorised use of your account.
 • Not transfer your account to any third party.
 
-Shourya Quest reserves the right to suspend or terminate accounts that violate these Terms or that are inactive for more than 24 months.`,
+Unaferia reserves the right to suspend or terminate accounts that violate these Terms or that are inactive for more than 24 months.`,
   },
   {
     id: "products",
     title: "3. Products and Pricing",
-    content: `Shourya Quest acts as a marketplace facilitating transactions between buyers and third-party sellers. We do not manufacture or warehouse most products listed on the platform.
+    content: `Unaferia acts as a marketplace facilitating transactions between buyers and third-party sellers. We do not manufacture or warehouse most products listed on the platform.
 
-• Product descriptions, images, and specifications are provided by sellers. While we make reasonable efforts to verify accuracy, Shourya Quest does not guarantee that descriptions are error-free.
+• Product descriptions, images, and specifications are provided by sellers. While we make reasonable efforts to verify accuracy, Unaferia does not guarantee that descriptions are error-free.
 • Prices are subject to change without notice. The price displayed at the time of placing an order is the price you will be charged.
-• In the event of a pricing error, Shourya Quest reserves the right to cancel orders placed at the incorrect price and will notify you promptly.`,
+• In the event of a pricing error, Unaferia reserves the right to cancel orders placed at the incorrect price and will notify you promptly.`,
   },
   {
     id: "orders",
@@ -50,7 +50,7 @@ Shourya Quest reserves the right to suspend or terminate accounts that violate t
     title: "5. Delivery",
     content: `Estimated delivery timelines are provided at checkout and are subject to the seller's processing time, courier availability, and your location.
 
-• Shourya Quest is not liable for delays caused by circumstances beyond our reasonable control, including natural disasters, strikes, or courier disruptions.
+• Unaferia is not liable for delays caused by circumstances beyond our reasonable control, including natural disasters, strikes, or courier disruptions.
 • Risk of loss passes to you upon delivery to the address provided.
 • If a delivery fails due to an incorrect or incomplete address provided by you, re-delivery charges may apply.`,
   },
@@ -68,14 +68,14 @@ Shourya Quest reserves the right to suspend or terminate accounts that violate t
   {
     id: "ip",
     title: "7. Intellectual Property",
-    content: `All content on the Shourya Quest platform — including but not limited to text, graphics, logos, button icons, images, audio clips, and software — is the property of Shourya Quest Pvt. Ltd. or its content suppliers and is protected by applicable intellectual property laws.
+    content: `All content on the Unaferia platform — including but not limited to text, graphics, logos, button icons, images, audio clips, and software — is the property of Unaferia Pvt. Ltd. or its content suppliers and is protected by applicable intellectual property laws.
 
-You may not reproduce, distribute, or create derivative works without our express written permission. Sellers retain ownership of content they upload but grant Shourya Quest a royalty-free licence to display and use it on the platform.`,
+You may not reproduce, distribute, or create derivative works without our express written permission. Sellers retain ownership of content they upload but grant Unaferia a royalty-free licence to display and use it on the platform.`,
   },
   {
     id: "liability",
     title: "8. Limitation of Liability",
-    content: `To the fullest extent permitted by applicable law, Shourya Quest shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of your use of, or inability to use, the platform.
+    content: `To the fullest extent permitted by applicable law, Unaferia shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of your use of, or inability to use, the platform.
 
 Our total liability to you for any claim arising from these Terms or your use of the platform shall not exceed the amount you paid for the specific product or service giving rise to the claim.
 
@@ -91,9 +91,9 @@ If negotiation fails, disputes shall be subject to the exclusive jurisdiction of
   {
     id: "contact",
     title: "10. Contact",
-    content: `If you have questions about these Terms, please contact our legal team at legal@shouryaquest.in or write to us at:
+    content: `If you have questions about these Terms, please contact our legal team at legal@unaferia.in or write to us at:
 
-Shourya Quest Private Limited
+Unaferia Private Limited
 14th Floor, Tower B, DLF Cyber City
 Gurugram, Haryana – 122002, India`,
   },
@@ -137,7 +137,7 @@ export default function TermsPage() {
           {/* Content */}
           <article className="rounded-xl border border-border bg-card p-6 sm:p-8">
             <p className="mb-8 text-sm leading-relaxed text-muted-foreground">
-              Please read these Terms and Conditions carefully before using the Shourya Quest platform. These Terms affect your legal rights and obligations.
+              Please read these Terms and Conditions carefully before using the Unaferia platform. These Terms affect your legal rights and obligations.
             </p>
             <div className="space-y-10">
               {sections.map((s) => (

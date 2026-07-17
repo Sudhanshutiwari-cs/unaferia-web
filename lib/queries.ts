@@ -281,7 +281,7 @@ export async function getProductReviews(
     rating: (r.rating as number) ?? 0,
     title: (r.title as string) || "",
     comment: (r.comment as string) || "",
-    reviewerName: (r.reviewer_name as string) || "Shourya Quest Customer",
+    reviewerName: (r.reviewer_name as string) || "Unaferia Customer",
     isVerified: Boolean(r.is_verified),
     createdAt: r.created_at as string,
   }))
