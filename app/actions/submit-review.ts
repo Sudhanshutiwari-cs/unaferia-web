@@ -25,7 +25,7 @@ export async function submitReview(input: SubmitReviewInput) {
     } = await supabase.auth.getUser()
     if (userError || !user) return { success: false, error: 'Please sign in to write a review.' }
 
-    const reviewerName = (user.user_metadata?.full_name as string) || 'Shourya Quest Customer'
+    const reviewerName = (user.user_metadata?.full_name as string) || 'Unaferia Customer'
 
     // Determine "verified purchase": does this user have an order line item
     // matching the product title? Order items store the product title.

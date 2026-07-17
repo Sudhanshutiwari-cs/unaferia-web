@@ -1,5 +1,5 @@
 /** Internal email domain used to back mobile+password accounts. */
-const PHONE_EMAIL_DOMAIN = "customer.shouryaquest.app"
+const PHONE_EMAIL_DOMAIN = "customer.unaferia.app"
 
 /** Keep only digits from a raw phone input. */
 export function normalizePhone(raw: string): string {

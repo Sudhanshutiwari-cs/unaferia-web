@@ -3,7 +3,7 @@
 import { useMemo, useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Trash2, Minus, Plus, ChevronDown, ShoppingCart, Check } from 'lucide-react'
+import { Trash2, Minus, Plus, ShoppingCart, Check } from 'lucide-react'
 import { useCart } from '@/components/cart-provider'
 import { useUser } from '@/hooks/use-user'
 import type { Product } from '@/lib/mock-data'
@@ -17,8 +17,6 @@ export default function CartPage() {
 
   // Per-item selection (Amazon lets you check/uncheck items).
   const [selected, setSelected] = useState<Record<string, boolean>>({})
-  const [gifts, setGifts] = useState<Record<string, boolean>>({})
-  const [orderIsGift, setOrderIsGift] = useState(false)
   const [saved, setSaved] = useState<Product[]>([])
   const [savedTab, setSavedTab] = useState<'saved' | 'again'>('saved')
 
@@ -92,7 +90,7 @@ export default function CartPage() {
             <ShoppingCart className="h-12 w-12 text-muted-foreground" aria-hidden="true" />
           </div>
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-foreground">Your Shourya Quest Cart is empty</h1>
+            <h1 className="text-2xl font-bold text-foreground">Your Unaferia Cart is empty</h1>
             <p className="mt-1 text-muted-foreground">Add items from the store to get started</p>
           </div>
           <Link
@@ -184,26 +182,6 @@ export default function CartPage() {
                     </div>
 
                     <p className="text-xs font-medium text-green-700">In stock</p>
-
-                    <div className="flex items-center gap-1">
-                      <span className="rounded-sm bg-navy px-1.5 py-0.5 text-[10px] font-semibold text-white">
-                        a
-                      </span>
-                      <span className="text-xs text-muted-foreground">Fulfilled</span>
-                    </div>
-
-                    <label className="hidden items-center gap-1.5 text-xs text-muted-foreground sm:flex">
-                      <input
-                        type="checkbox"
-                        checked={!!gifts[product.id]}
-                        onChange={() =>
-                          setGifts((prev) => ({ ...prev, [product.id]: !prev[product.id] }))
-                        }
-                        className="h-3.5 w-3.5 accent-[#007185]"
-                      />
-                      This is a gift
-                      <span className="text-link">Learn more</span>
-                    </label>
 
                     {/* Controls */}
                     <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-2 text-xs sm:gap-x-3 sm:text-sm">
@@ -382,16 +360,6 @@ export default function CartPage() {
                 <span className="font-bold">₹{selectedSubtotal.toLocaleString('en-IN')}</span>
               </p>
 
-              <label className="mt-2 flex items-center gap-2 text-sm text-foreground">
-                <input
-                  type="checkbox"
-                  checked={orderIsGift}
-                  onChange={() => setOrderIsGift((v) => !v)}
-                  className="h-4 w-4 accent-[#007185]"
-                />
-                This order includes a gift
-              </label>
-
               {user ? (
                 <Link
                   href="/checkout"
@@ -411,20 +379,6 @@ export default function CartPage() {
                 </Link>
               )}
 
-              <button className="mt-3 flex w-full items-center justify-between rounded-md border border-border px-3 py-2.5 text-sm text-foreground hover:bg-muted">
-                EMI available
-                <ChevronDown className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
-              </button>
-            </div>
-
-            {/* Prime promo */}
-            <div className="rounded-sm bg-[#0d74c4] p-4 text-white">
-              <p className="text-lg font-semibold leading-snug">
-                Pay for shipping with every order Join Prime now for FREE shipping, cancel anytime
-              </p>
-              <button className="mt-4 w-full rounded-full bg-brand py-2.5 text-sm font-semibold text-brand-foreground hover:opacity-90">
-                Join Prime Shopping Edition at ₹399/year
-              </button>
             </div>
           </div>
         </div>

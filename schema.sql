@@ -1,6 +1,6 @@
 -- =============================================================================
 -- FULL DATABASE SCHEMA
--- Project : ShouryaQuest E-Commerce
+-- Project : Unaferia E-Commerce
 -- Database : Supabase (PostgreSQL)
 -- Generated: 2026-07-14
 --

@@ -191,7 +191,7 @@ export default function CheckoutPage() {
       const options = {
         key: razorpayKey,
         order_id: result.razorpayOrderId,
-        name: 'Shourya Quest',
+        name: 'Unaferia',
         description: `Order ${result.orderNumber}`,
         amount: Math.round(finalTotal * 100),
         currency: 'INR',

@@ -3,17 +3,17 @@ import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import { CartProvider } from '@/components/cart-provider'
 import { GlobalHeader } from '@/components/global-header'
-import { WhatsAppButton } from '@/components/whatsapp-button'
 import { BottomNav } from '@/components/bottom-nav'
+import { WhatsAppButton } from '@/components/whatsapp-button'
 import { Toaster } from 'sonner'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
 export const metadata: Metadata = {
-  title: 'Shourya Quest - Online Shopping for Electronics, Fashion & More',
+  title: 'Unaferia - Online Shopping for Electronics, Fashion & More',
   description:
-    'Shourya Quest is your one-stop destination for online shopping in India. Great deals, secure payments and fast delivery on millions of products.',
+    'Unaferia is your one-stop destination for online shopping in India. Great deals, secure payments and fast delivery on millions of products.',
   generator: 'v0.app',
 }
 

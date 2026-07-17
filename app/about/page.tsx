@@ -34,7 +34,7 @@ const values = [
   {
     icon: Star,
     title: "Curated Quality",
-    description: "Our team of experts vets every seller and product listing. If it's on Shourya Quest, you can trust that it meets our quality standards.",
+    description: "Our team of experts vets every seller and product listing. If it's on Unaferia, you can trust that it meets our quality standards.",
   },
 ]
 
@@ -46,7 +46,7 @@ const team = [
 ]
 
 const milestones = [
-  { year: "2018", title: "Founded", description: "Shourya Quest launched out of a small Gurugram office with a vision to democratise e-commerce in India." },
+  { year: "2018", title: "Founded", description: "Unaferia launched out of a small Gurugram office with a vision to democratise e-commerce in India." },
   { year: "2019", title: "First Million Orders", description: "Within 12 months we crossed 1 million orders, powered by word-of-mouth and exceptional customer service." },
   { year: "2021", title: "Pan-India Expansion", description: "Expanded our fulfilment network to 27,000+ pin codes, reaching Tier-2 and Tier-3 cities for the first time." },
   { year: "2023", title: "50 Million Customers", description: "Crossed 50 million registered customers and onboarded 500+ brand partners across 20+ categories." },
@@ -60,7 +60,7 @@ export default function AboutPage() {
       <section className="bg-navy py-20 text-white">
         <div className="mx-auto max-w-[1400px] px-4 text-center">
           <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-brand">Our Story</p>
-          <h1 className="text-3xl font-extrabold sm:text-4xl md:text-5xl">About Shourya Quest</h1>
+          <h1 className="text-3xl font-extrabold sm:text-4xl md:text-5xl">About Unaferia</h1>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/75">
             We started with a simple belief: every Indian deserves access to great products at honest prices, delivered quickly and reliably to their doorstep. That belief drives everything we do.
           </p>
@@ -86,7 +86,7 @@ export default function AboutPage() {
             <p className="text-sm font-semibold uppercase tracking-widest text-brand">Our Mission</p>
             <h2 className="mt-2 text-2xl font-bold text-foreground sm:text-3xl">Building India&apos;s Most Trusted Marketplace</h2>
             <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-              Shourya Quest was born from a frustration shared by millions — the difficulty of finding genuine products at fair prices with dependable delivery. We set out to fix that.
+              Unaferia was born from a frustration shared by millions — the difficulty of finding genuine products at fair prices with dependable delivery. We set out to fix that.
             </p>
             <p className="mt-3 text-base leading-relaxed text-muted-foreground">
               Today we are one of India&apos;s fastest-growing e-commerce platforms, serving customers from the metros to the most remote corners of the country. We partner with thousands of sellers — from global brands to local artisans — to bring an unmatched selection to your fingertips.

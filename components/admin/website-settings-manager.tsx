@@ -76,8 +76,8 @@ export function WebsiteSettingsManager() {
           <div className="rounded-xl border border-border bg-card p-6">
             <h2 className="mb-5 text-base font-semibold text-foreground">Store Information</h2>
             <div className="flex flex-col gap-4">
-              <Field id="store-name" label="Store Name" defaultValue="Shourya Quest" />
-              <Field id="store-email" label="Support Email" type="email" defaultValue="admin@shouryaquest.in" />
+              <Field id="store-name" label="Store Name" defaultValue="Unaferia" />
+              <Field id="store-email" label="Support Email" type="email" defaultValue="admin@unaferia.in" />
               <Field id="store-phone" label="Support Phone" type="tel" placeholder="+91 98765 43210" />
               <Field id="store-address" label="Store Address" type="textarea" placeholder="123, Main Street, City — 400001" />
               <div className="flex flex-col gap-1.5">
@@ -98,8 +98,8 @@ export function WebsiteSettingsManager() {
           <div className="rounded-xl border border-border bg-card p-6">
             <h2 className="mb-5 text-base font-semibold text-foreground">SEO Defaults</h2>
             <div className="flex flex-col gap-4">
-              <Field id="seo-title" label="Default Page Title" defaultValue="Shourya Quest — Quality Products, Best Prices" />
-              <Field id="seo-desc" label="Default Meta Description" type="textarea" placeholder="Shop the best electronics, fashion, home essentials and more at Shourya Quest." />
+              <Field id="seo-title" label="Default Page Title" defaultValue="Unaferia — Quality Products, Best Prices" />
+              <Field id="seo-desc" label="Default Meta Description" type="textarea" placeholder="Shop the best electronics, fashion, home essentials and more at Unaferia." />
               <Field id="seo-keywords" label="Keywords" placeholder="online shopping, electronics, fashion, india" />
               <Field id="og-image" label="Default OG Image URL" placeholder="https://yourdomain.com/og-image.jpg" />
               <Field id="favicon" label="Favicon URL" placeholder="https://yourdomain.com/favicon.ico" />
@@ -120,10 +120,10 @@ export function WebsiteSettingsManager() {
           <div className="rounded-xl border border-border bg-card p-6">
             <h2 className="mb-5 text-base font-semibold text-foreground">Social Media Links</h2>
             <div className="flex flex-col gap-4">
-              <Field id="facebook" label="Facebook URL" placeholder="https://facebook.com/shouryaquest" />
-              <Field id="instagram" label="Instagram URL" placeholder="https://instagram.com/shouryaquest" />
-              <Field id="twitter" label="X (Twitter) URL" placeholder="https://x.com/shouryaquest" />
-              <Field id="youtube" label="YouTube URL" placeholder="https://youtube.com/@shouryaquest" />
+              <Field id="facebook" label="Facebook URL" placeholder="https://facebook.com/unaferia" />
+              <Field id="instagram" label="Instagram URL" placeholder="https://instagram.com/unaferia" />
+              <Field id="twitter" label="X (Twitter) URL" placeholder="https://x.com/unaferia" />
+              <Field id="youtube" label="YouTube URL" placeholder="https://youtube.com/@unaferia" />
               <Field id="whatsapp" label="WhatsApp Number" placeholder="+91 98765 43210" />
               <SaveBar />
             </div>
@@ -153,7 +153,7 @@ export function WebsiteSettingsManager() {
                   />
                 </label>
               ))}
-              <Field id="notif-email" label="Notification Email" type="email" defaultValue="admin@shouryaquest.in" />
+              <Field id="notif-email" label="Notification Email" type="email" defaultValue="admin@unaferia.in" />
               <SaveBar />
             </div>
           </div>

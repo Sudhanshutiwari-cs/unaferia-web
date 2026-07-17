@@ -54,8 +54,8 @@ function PaymentContent() {
         await handlePaymentSuccess(response.razorpay_payment_id, razorpayOrderId)
       },
       prefill: {
-        name: 'Shourya Quest Customer',
-        email: 'customer@shouryaquest.app',
+        name: 'Unaferia Customer',
+        email: 'customer@unaferia.app',
         contact: '9876500011',
       },
       theme: {
