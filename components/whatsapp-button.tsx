@@ -1,7 +1,5 @@
 "use client"
 
-import { useState } from "react"
-import { X } from "lucide-react"
 
 // Replace with your actual WhatsApp business number (no + or spaces)
 const WHATSAPP_NUMBER = "919999999999"
@@ -19,34 +17,13 @@ function WhatsAppIcon({ className }: { className?: string }) {
 }
 
 export function WhatsAppButton() {
-  const [tooltipDismissed, setTooltipDismissed] = useState(false)
-
   return (
-    <div className="fixed bottom-20 right-4 z-50 flex flex-col items-end gap-2 sm:bottom-6 sm:right-5">
-      {/* Tooltip bubble */}
-      {!tooltipDismissed && (
-        <div className="flex items-start gap-2 rounded-2xl bg-card px-4 py-3 shadow-lg ring-1 ring-border">
-          <div>
-            <p className="text-sm font-semibold text-foreground">Need help?</p>
-            <p className="text-xs text-muted-foreground">Chat with us on WhatsApp</p>
-          </div>
-          <button
-            onClick={() => setTooltipDismissed(true)}
-            aria-label="Dismiss"
-            className="ml-1 mt-0.5 text-muted-foreground transition hover:text-foreground"
-          >
-            <X className="h-3.5 w-3.5" />
-          </button>
-        </div>
-      )}
-
-      {/* FAB */}
+    <div className="fixed bottom-20 right-4 z-50 sm:bottom-6 sm:right-5">
       <a
         href={WHATSAPP_URL}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat with us on WhatsApp"
-        onClick={() => setTooltipDismissed(true)}
         className="flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition hover:bg-[#1ebe5d] hover:shadow-xl active:scale-95"
       >
         <WhatsAppIcon className="h-7 w-7" />
