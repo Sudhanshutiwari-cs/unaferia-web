@@ -24,6 +24,7 @@ import {
   SearchCheck,
   Zap,
   UserCircle2,
+  FileSpreadsheet,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { signOutAdmin } from "@/app/actions/admin-auth"
@@ -42,6 +43,7 @@ const mainNav = [
   { label: "Quick Links", href: "/admin/quick-links", icon: Zap },
   { label: "Influencers", href: "/admin/influencers", icon: UserCircle2 },
   { label: "Newsletter", href: "/admin/newsletter", icon: MailOpen },
+  { label: "Bulk Import / Export", href: "/admin/bulk", icon: FileSpreadsheet },
   { label: "SEO Manager", href: "/admin/seo", icon: SearchCheck },
 ]
 
