@@ -92,9 +92,9 @@ export function SiteFooter() {
             <Image
               src="/images/unaferia-logo.jpg"
               alt="Unaferia"
-              width={120}
-              height={40}
-              className="h-10 w-auto object-contain brightness-0 invert"
+              width={160}
+              height={56}
+              className="h-14 w-auto rounded-md object-contain"
             />
             <p className="mt-4 text-sm leading-relaxed text-white/70">
               Unaferia is your one-stop destination for online shopping in India. Shop from a

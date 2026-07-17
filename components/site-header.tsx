@@ -96,9 +96,9 @@ export function SiteHeader() {
           <Image
             src="/images/unaferia-logo.jpg"
             alt="Unaferia"
-            width={120}
-            height={40}
-            className="h-10 w-auto object-contain"
+            width={160}
+            height={52}
+            className="h-13 w-auto rounded object-contain"
             priority
           />
         </Link>

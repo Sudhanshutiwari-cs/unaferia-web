@@ -99,9 +99,9 @@ export function AdminSidebar({ open, onClose }: { open?: boolean; onClose?: () =
           <Image
             src="/images/unaferia-logo.jpg"
             alt="Unaferia"
-            width={120}
-            height={36}
-            className="h-9 w-auto object-contain brightness-0 invert"
+            width={140}
+            height={44}
+            className="h-11 w-auto rounded object-contain"
             priority
           />
           {/* Close button — visible on mobile only */}
