@@ -30,7 +30,7 @@ export default function ContactPage() {
       icon: Mail,
       title: "Email Us",
       description: "We reply within 24 hours",
-      detail: "support@shouryaquest.in",
+      detail: "support@unaferia.in",
       sub: "For order & product queries",
     },
     {
@@ -44,7 +44,7 @@ export default function ContactPage() {
       icon: RotateCcw,
       title: "Returns & Refunds",
       description: "Start a return or track refund",
-      detail: "returns@shouryaquest.in",
+      detail: "returns@unaferia.in",
       sub: "Typically resolved in 5–7 days",
     },
   ]
@@ -186,7 +186,7 @@ export default function ContactPage() {
                   <MapPin className="mt-0.5 size-5 shrink-0 text-brand" aria-hidden="true" />
                   <div>
                     <p className="text-sm font-medium text-foreground">Registered Address</p>
-                    <p className="text-sm text-muted-foreground">Shourya Quest Pvt. Ltd., 14th Floor, Tower B, DLF Cyber City, Gurugram, Haryana – 122002, India</p>
+                    <p className="text-sm text-muted-foreground">Unaferia Pvt. Ltd., 14th Floor, Tower B, DLF Cyber City, Gurugram, Haryana – 122002, India</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
@@ -200,7 +200,7 @@ export default function ContactPage() {
                   <Mail className="mt-0.5 size-5 shrink-0 text-brand" aria-hidden="true" />
                   <div>
                     <p className="text-sm font-medium text-foreground">Email</p>
-                    <p className="text-sm text-muted-foreground">support@shouryaquest.in</p>
+                    <p className="text-sm text-muted-foreground">support@unaferia.in</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">

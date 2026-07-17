@@ -11,9 +11,9 @@ const sections = [
   {
     id: "overview",
     title: "1. Overview",
-    content: `Shourya Quest Private Limited ("we", "us", or "our") is committed to protecting your personal information. This Privacy Policy explains what data we collect, how we use it, and your rights with respect to that data.
+    content: `Unaferia Private Limited ("we", "us", or "our") is committed to protecting your personal information. This Privacy Policy explains what data we collect, how we use it, and your rights with respect to that data.
 
-This Policy applies to all users of the Shourya Quest website and mobile application. By using our services you consent to the practices described in this Policy.`,
+This Policy applies to all users of the Unaferia website and mobile application. By using our services you consent to the practices described in this Policy.`,
   },
   {
     id: "data-collected",
@@ -95,19 +95,19 @@ If you delete your account, we will delete or anonymise your personal data withi
 • Data portability — receive your data in a structured, machine-readable format.
 • Withdraw consent at any time where processing is based on consent.
 
-To exercise any of these rights, email privacy@shouryaquest.in with your registered email address. We will respond within 30 days.`,
+To exercise any of these rights, email privacy@unaferia.in with your registered email address. We will respond within 30 days.`,
   },
   {
     id: "security",
     title: "8. Security",
     content: `We implement appropriate technical and organisational measures to protect your data against unauthorised access, alteration, disclosure, or destruction. These include encryption in transit and at rest, multi-factor authentication for staff, and regular security audits.
 
-No method of transmission over the internet is completely secure. While we strive to protect your data, we cannot guarantee absolute security. Please notify us immediately at security@shouryaquest.in if you suspect a security breach.`,
+No method of transmission over the internet is completely secure. While we strive to protect your data, we cannot guarantee absolute security. Please notify us immediately at security@unaferia.in if you suspect a security breach.`,
   },
   {
     id: "children",
     title: "9. Children's Privacy",
-    content: `Our platform is not directed at children under the age of 18. We do not knowingly collect personal information from minors. If we become aware that a minor has provided us with personal data, we will delete it promptly. If you believe a minor has registered on our platform, please contact us at privacy@shouryaquest.in.`,
+    content: `Our platform is not directed at children under the age of 18. We do not knowingly collect personal information from minors. If we become aware that a minor has provided us with personal data, we will delete it promptly. If you believe a minor has registered on our platform, please contact us at privacy@unaferia.in.`,
   },
   {
     id: "changes",
@@ -119,8 +119,8 @@ No method of transmission over the internet is completely secure. While we striv
     title: "11. Contact Our Privacy Team",
     content: `For questions, concerns, or requests relating to this Policy, contact our Data Protection Officer:
 
-Email: privacy@shouryaquest.in
-Post: Data Protection Officer, Shourya Quest Pvt. Ltd., 14th Floor, Tower B, DLF Cyber City, Gurugram, Haryana – 122002, India`,
+Email: privacy@unaferia.in
+Post: Data Protection Officer, Unaferia Pvt. Ltd., 14th Floor, Tower B, DLF Cyber City, Gurugram, Haryana – 122002, India`,
   },
 ]
 

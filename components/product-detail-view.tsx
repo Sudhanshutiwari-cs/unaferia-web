@@ -341,7 +341,7 @@ export function ProductDetailView({ product }: { product: ProductDetail }) {
           <span className="text-xs text-muted-foreground">Share:</span>
           {(() => {
             const pageUrl = typeof window !== "undefined" ? window.location.href : ""
-            const text = encodeURIComponent(`Check out ${product.name} on Shourya Quest!`)
+            const text = encodeURIComponent(`Check out ${product.name} on Unaferia!`)
             const url = encodeURIComponent(pageUrl)
             return (
               <>
@@ -380,11 +380,11 @@ export function ProductDetailView({ product }: { product: ProductDetail }) {
         <div className="mt-4 space-y-1.5 border-t border-border pt-3 text-xs text-muted-foreground">
           <p className="flex justify-between">
             <span>Ships from</span>
-            <span className="text-foreground">Shourya Quest</span>
+            <span className="text-foreground">Unaferia</span>
           </p>
           <p className="flex justify-between">
             <span>Sold by</span>
-            <span className="text-foreground">{product.brand || "Shourya Quest"}</span>
+            <span className="text-foreground">{product.brand || "Unaferia"}</span>
           </p>
         </div>
         <div className="mt-3 space-y-2 border-t border-border pt-3 text-xs text-muted-foreground">

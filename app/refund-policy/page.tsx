@@ -60,7 +60,7 @@ Products are NOT eligible for return if:
 4. Select a convenient date for reverse pickup — our logistics partner will collect the item.
 5. Once the returned item is received and inspected, your refund will be initiated.
 
-Alternatively, contact our support team at support@shouryaquest.in or call 1800-123-4567 (toll-free).`,
+Alternatively, contact our support team at support@unaferia.in or call 1800-123-4567 (toll-free).`,
   },
   {
     id: "refund-timeline",
@@ -70,7 +70,7 @@ Alternatively, contact our support team at support@shouryaquest.in or call 1800-
 • Credit / Debit Card: 5–7 business days
 • Net Banking: 3–5 business days
 • UPI: 1–3 business days
-• Shourya Quest Wallet Credit: Within 24 hours
+• Unaferia Wallet Credit: Within 24 hours
 • Cash on Delivery (COD) — NEFT to bank account: 5–7 business days
 
 Refund timelines may vary slightly depending on your bank. If you have not received your refund within the above windows, please contact us.`,
@@ -90,7 +90,7 @@ To request an exchange, follow the same process as a return and select "Exchange
     title: "Seller Returns",
     content: `For products sold by third-party sellers on our marketplace, the return and refund policy of the individual seller may apply in addition to our platform policy. The seller's return policy is always displayed on the product page before purchase.
 
-If a seller refuses a valid return request that falls within our platform policy, please escalate to Shourya Quest support and we will step in to resolve the matter at support@shouryaquest.in.`,
+If a seller refuses a valid return request that falls within our platform policy, please escalate to Unaferia support and we will step in to resolve the matter at support@unaferia.in.`,
   },
   {
     id: "cancellations",

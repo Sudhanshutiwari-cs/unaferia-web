@@ -8,13 +8,13 @@ export type SeoData = {
   ogImage: string | null
 }
 
-const SITE_NAME = "Shourya Quest"
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://shouryaquest.in"
+const SITE_NAME = "Unaferia"
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://unaferia.in"
 
 const FALLBACK: SeoData = {
   metaTitle: `${SITE_NAME} - Online Shopping for Electronics, Fashion & More`,
   metaDescription:
-    "Shourya Quest is your one-stop destination for online shopping in India. Best deals, secure payments and fast delivery.",
+    "Unaferia is your one-stop destination for online shopping in India. Best deals, secure payments and fast delivery.",
   metaKeywords: "online shopping, electronics, fashion, deals, india",
   ogImage: null,
 }

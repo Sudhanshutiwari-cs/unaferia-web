@@ -148,7 +148,32 @@ export async function getShopCategories(): Promise<ShopCategory[]> {
     console.log("[v0] getShopCategories error:", error?.message)
     return []
   }
-  return data.map((c) => ({ name: c.name as string, image: (c.image as string) || "/placeholder.svg" }))
+
+  const CATEGORY_IMAGES: Record<string, string> = {
+    "electronics": "/images/cat-electronics.png",
+    "mobiles": "/images/cat-mobiles.png",
+    "mobiles & accessories": "/images/cat-mobiles.png",
+    "computers": "/images/cat-computers.png",
+    "computers & accessories": "/images/cat-computers.png",
+    "video games": "/images/cat-videogames.png",
+    "cameras": "/images/cat-cameras.png",
+    "audio": "/images/cat-audio.png",
+    "musical instruments": "/images/cat-musical.png",
+    "office products": "/images/cat-office.png",
+    "fashion": "/images/cat-fashion.png",
+    "home & kitchen": "/images/cat-home.png",
+    "beauty": "/images/cat-beauty.png",
+    "sports": "/images/cat-sports.png",
+    "books": "/images/cat-books.png",
+    "automotive": "/images/cat-automotive.png",
+  }
+
+  return data.map((c) => {
+    const name = c.name as string
+    const dbImage = c.image as string | null
+    const fallback = CATEGORY_IMAGES[name.toLowerCase()] ?? "/images/cat-electronics.png"
+    return { name, image: dbImage || fallback }
+  })
 }
 
 // -----------------------------------------------------------------------------
@@ -281,7 +306,7 @@ export async function getProductReviews(
     rating: (r.rating as number) ?? 0,
     title: (r.title as string) || "",
     comment: (r.comment as string) || "",
-    reviewerName: (r.reviewer_name as string) || "Shourya Quest Customer",
+    reviewerName: (r.reviewer_name as string) || "Unaferia Customer",
     isVerified: Boolean(r.is_verified),
     createdAt: r.created_at as string,
   }))

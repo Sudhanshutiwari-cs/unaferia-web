@@ -104,7 +104,7 @@ export function AdminLoginForm() {
       </form>
 
       <p className="mt-8 text-center text-xs text-muted-foreground">
-        &copy; 2025 Shourya Quest. All rights reserved.
+        &copy; 2025 Unaferia. All rights reserved.
       </p>
     </div>
   )

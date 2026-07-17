@@ -196,7 +196,7 @@ function ExpandableRow({
 // ---------------------------------------------------------------------------
 
 function PagesTab({ pages }: { pages: SeoPage[] }) {
-  const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://shouryaquest.in"
+  const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://unaferia.in"
   return (
     <div className="space-y-3">
       {pages.map((page) => (
@@ -221,7 +221,7 @@ function PagesTab({ pages }: { pages: SeoPage[] }) {
 // ---------------------------------------------------------------------------
 
 function CategoriesTab({ categories }: { categories: CategorySeoRow[] }) {
-  const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://shouryaquest.in"
+  const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://unaferia.in"
   const [search, setSearch] = useState("")
   const filtered = categories.filter((c) => c.name.toLowerCase().includes(search.toLowerCase()))
 
@@ -264,7 +264,7 @@ function CategoriesTab({ categories }: { categories: CategorySeoRow[] }) {
 // ---------------------------------------------------------------------------
 
 function ProductsTab({ products }: { products: ProductSeoRow[] }) {
-  const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://shouryaquest.in"
+  const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://unaferia.in"
   const [search, setSearch] = useState("")
   const filtered = products.filter((p) => p.title.toLowerCase().includes(search.toLowerCase()))
 

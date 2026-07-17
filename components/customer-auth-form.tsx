@@ -3,6 +3,7 @@
 import type React from "react"
 import { useState, Suspense } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Phone, Lock, User, Eye, EyeOff, Loader2 } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
@@ -104,9 +105,15 @@ function CustomerAuthFormInner({ mode }: { mode: "login" | "signup" }) {
 
   return (
     <div className="w-full max-w-md rounded-2xl bg-card p-5 shadow-xl sm:p-8 lg:p-10">
-      <Link href="/" className="flex flex-col items-center leading-none">
-        <span className="text-2xl font-bold tracking-tight text-navy">SHOURYA</span>
-        <span className="text-2xl font-bold tracking-tight text-brand">QUEST</span>
+      <Link href="/" className="flex items-center justify-center">
+        <Image
+          src="/images/unaferia-logo.jpg"
+          alt="Unaferia"
+          width={140}
+          height={44}
+          className="h-11 w-auto object-contain"
+          priority
+        />
       </Link>
 
       <div className="mt-6 text-center">
@@ -234,7 +241,7 @@ function CustomerAuthFormInner({ mode }: { mode: "login" | "signup" }) {
           </>
         ) : (
           <>
-            New to Shourya Quest?{" "}
+            New to Unaferia?{" "}
             <Link href="/signup" className="font-semibold text-link hover:underline">
               Create an account
             </Link>
