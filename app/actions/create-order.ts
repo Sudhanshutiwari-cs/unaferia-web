@@ -128,52 +128,8 @@ export async function createOrder(input: CreateOrderInput) {
       // Non-fatal — the order is still valid.
     }
 
-    // Razorpay — create payment order
-    let razorpayOrderId: string | undefined
-
-    if (input.paymentMethod === 'razorpay') {
-      const keyId = process.env.RAZORPAY_KEY_ID
-      const keySecret = process.env.RAZORPAY_KEY_SECRET
-
-      if (!keyId || !keySecret) {
-        return { success: false, error: 'Payment gateway is not configured. Please contact support.' }
-      }
-
-      const res = await fetch('https://api.razorpay.com/v1/orders', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Basic ${Buffer.from(`${keyId}:${keySecret}`).toString('base64')}`,
-        },
-        body: JSON.stringify({
-          amount: Math.round(input.total * 100), // paise
-          currency: 'INR',
-          receipt: orderNumber,
-          notes: { order_id: order.id, user_id: user.id },
-        }),
-      })
-
-      if (!res.ok) {
-        const errText = await res.text()
-        console.error('[create-order] Razorpay API error:', errText)
-        return { success: false, error: 'Payment gateway error. Please try again.' }
-      }
-
-      const rz = await res.json()
-      razorpayOrderId = rz.id
-
-      await supabase.from('payments').insert({
-        order_id: order.id,
-        user_id: user.id,
-        amount: input.total,
-        currency: 'INR',
-        method: 'online',
-        provider: 'razorpay',
-        transaction_id: razorpayOrderId,
-        status: 'pending',
-      })
-    } else {
-      // COD
+    // COD — confirm immediately
+    if (input.paymentMethod === 'cod') {
       await supabase
         .from('orders')
         .update({ status: 'confirmed', payment_status: 'pending' })
@@ -189,8 +145,10 @@ export async function createOrder(input: CreateOrderInput) {
         status: 'pending',
       })
     }
+    // For Razorpay: payment is already verified before this function is called.
+    // The verify-payment route inserts the payments row after signature check.
 
-    return { success: true, orderId: order.id, orderNumber, razorpayOrderId }
+    return { success: true, orderId: order.id, orderNumber }
   } catch (err) {
     console.error('[create-order] unexpected error:', err)
     return { success: false, error: 'Unexpected error. Please try again.' }
