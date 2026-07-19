@@ -9,6 +9,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { useUser } from "@/hooks/use-user"
 import { createClient } from "@/lib/supabase/client"
 import { OrderDetailDrawer } from "@/components/order-detail-drawer"
+import { useSWRConfig } from "swr"
 
 type OrderItem = {
   id: string
@@ -140,12 +141,22 @@ function formatDate(iso: string) {
 
 export default function OrdersPage() {
   const { user, isLoading: userLoading } = useUser()
-  const { data: orders, isLoading } = useSWR(user ? ["orders", user.id] : null, () => fetchOrders(user!.id))
+  const { data: orders, isLoading, mutate } = useSWR(user ? ["orders", user.id] : null, () => fetchOrders(user!.id))
   const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null)
+  const { mutate: globalMutate } = useSWRConfig()
+
+  function handleCancelled() {
+    mutate()
+    globalMutate((key) => typeof key === "string" && key.startsWith("profile-orders-"), undefined, { revalidate: true })
+  }
 
   return (
     <div className="min-h-screen bg-background">
-      <OrderDetailDrawer orderId={selectedOrderId} onClose={() => setSelectedOrderId(null)} />
+      <OrderDetailDrawer
+        orderId={selectedOrderId}
+        onClose={() => setSelectedOrderId(null)}
+        onCancelled={handleCancelled}
+      />
       <div className="mx-auto max-w-4xl px-3 py-6 sm:px-4">
         <h1 className="mb-4 text-2xl font-bold text-foreground">Your Orders</h1>
 
