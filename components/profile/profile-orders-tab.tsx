@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import useSWR from "swr"
+import useSWR, { useSWRConfig } from "swr"
 import Link from "next/link"
 import Image from "next/image"
 import { Package, ShoppingBag, ChevronRight, Truck, ExternalLink } from "lucide-react"
@@ -66,10 +66,16 @@ async function fetchOrders(userId: string): Promise<Order[]> {
 
 export function ProfileOrdersTab({ user }: { user: CustomerUser }) {
   const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null)
-  const { data: orders, isLoading } = useSWR(
+  const { data: orders, isLoading, mutate } = useSWR(
     user ? `profile-orders-${user.id}` : null,
     () => fetchOrders(user.id),
   )
+  const { mutate: globalMutate } = useSWRConfig()
+
+  function handleCancelled() {
+    mutate()
+    globalMutate(["orders", user.id], undefined, { revalidate: true })
+  }
 
   if (isLoading) {
     return (
@@ -103,7 +109,11 @@ export function ProfileOrdersTab({ user }: { user: CustomerUser }) {
 
   return (
     <div className="space-y-3">
-      <OrderDetailDrawer orderId={selectedOrderId} onClose={() => setSelectedOrderId(null)} />
+      <OrderDetailDrawer
+        orderId={selectedOrderId}
+        onClose={() => setSelectedOrderId(null)}
+        onCancelled={handleCancelled}
+      />
       {orders.map((order) => {
         const firstItem = order.order_items?.[0]
         const extraCount = (order.order_items?.length ?? 1) - 1

@@ -1,13 +1,15 @@
 "use client"
 
-import { useEffect, useCallback } from "react"
+import { useEffect, useCallback, useState } from "react"
 import Image from "next/image"
 import {
   X, Package, Truck, CreditCard, MapPin, ExternalLink,
-  CheckCircle2, Clock, Circle, Tag, FileText,
+  CheckCircle2, Clock, Circle, Tag, FileText, AlertTriangle, Loader2,
 } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import useSWR from "swr"
+import { toast } from "sonner"
+import { cancelOrder } from "@/app/actions/cancel-order"
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -179,16 +181,55 @@ function StatusPill({ status }: { status: string }) {
 
 // ── Main drawer ───────────────────────────────────────────────────────────────
 
+const CANCEL_REASONS = [
+  "I changed my mind",
+  "I found a better price elsewhere",
+  "I ordered by mistake",
+  "Delivery time is too long",
+  "Other",
+]
+
+const CANCELLABLE = ["pending", "confirmed"]
+
 interface Props {
   orderId: string | null
   onClose: () => void
+  onCancelled?: (orderId: string) => void
 }
 
-export function OrderDetailDrawer({ orderId, onClose }: Props) {
-  const { data: order, isLoading } = useSWR(
+export function OrderDetailDrawer({ orderId, onClose, onCancelled }: Props) {
+  const { data: order, isLoading, mutate } = useSWR(
     orderId ? `order-detail-${orderId}` : null,
     () => fetchOrderDetail(orderId!),
   )
+
+  const [showCancelPanel, setShowCancelPanel] = useState(false)
+  const [cancelReason, setCancelReason] = useState(CANCEL_REASONS[0])
+  const [cancelOther, setCancelOther] = useState("")
+  const [cancelling, setCancelling] = useState(false)
+
+  // Reset cancel panel when drawer closes / opens new order
+  useEffect(() => {
+    setShowCancelPanel(false)
+    setCancelReason(CANCEL_REASONS[0])
+    setCancelOther("")
+  }, [orderId])
+
+  async function handleCancelConfirm() {
+    if (!orderId) return
+    const reason = cancelReason === "Other" ? (cancelOther.trim() || "Other") : cancelReason
+    setCancelling(true)
+    const result = await cancelOrder(orderId, reason)
+    setCancelling(false)
+    if (result.ok) {
+      toast.success("Order cancelled successfully.")
+      mutate()
+      onCancelled?.(orderId)
+      setShowCancelPanel(false)
+    } else {
+      toast.error(result.error ?? "Failed to cancel order. Please try again.")
+    }
+  }
 
   // Close on Escape
   const handleKey = useCallback(
@@ -433,6 +474,76 @@ export function OrderDetailDrawer({ orderId, onClose }: Props) {
                       {order.admin_notes}
                     </div>
                   </Section>
+                </div>
+              )}
+
+              {/* ── Cancel order ── */}
+              {CANCELLABLE.includes(order.status) && (
+                <div className="px-5 py-4">
+                  {!showCancelPanel ? (
+                    <button
+                      onClick={() => setShowCancelPanel(true)}
+                      className="w-full rounded-xl border border-red-200 bg-red-50 py-2.5 text-sm font-semibold text-red-600 transition hover:bg-red-100"
+                    >
+                      Cancel Order
+                    </button>
+                  ) : (
+                    <div className="rounded-xl border border-red-200 bg-red-50 p-4">
+                      <div className="mb-3 flex items-center gap-2">
+                        <AlertTriangle className="h-4 w-4 shrink-0 text-red-600" aria-hidden="true" />
+                        <p className="text-sm font-semibold text-red-700">Cancel this order?</p>
+                      </div>
+                      <p className="mb-4 text-xs text-red-600">
+                        This action cannot be undone. Please select a reason below.
+                      </p>
+
+                      {/* Reason selector */}
+                      <div className="mb-3 space-y-2">
+                        {CANCEL_REASONS.map((r) => (
+                          <label key={r} className="flex cursor-pointer items-center gap-2.5 text-sm text-foreground">
+                            <input
+                              type="radio"
+                              name="cancel-reason"
+                              value={r}
+                              checked={cancelReason === r}
+                              onChange={() => setCancelReason(r)}
+                              className="h-4 w-4 accent-red-600"
+                            />
+                            {r}
+                          </label>
+                        ))}
+                      </div>
+
+                      {/* Free-text for "Other" */}
+                      {cancelReason === "Other" && (
+                        <textarea
+                          value={cancelOther}
+                          onChange={(e) => setCancelOther(e.target.value)}
+                          placeholder="Please describe your reason…"
+                          rows={2}
+                          className="mb-3 w-full resize-none rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-red-400"
+                        />
+                      )}
+
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => setShowCancelPanel(false)}
+                          disabled={cancelling}
+                          className="flex-1 rounded-lg border border-border bg-background py-2 text-sm font-medium text-foreground transition hover:bg-muted disabled:opacity-50"
+                        >
+                          Keep Order
+                        </button>
+                        <button
+                          onClick={handleCancelConfirm}
+                          disabled={cancelling || (cancelReason === "Other" && !cancelOther.trim())}
+                          className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-red-600 py-2 text-sm font-semibold text-white transition hover:bg-red-700 disabled:opacity-50"
+                        >
+                          {cancelling && <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden="true" />}
+                          {cancelling ? "Cancelling…" : "Confirm Cancel"}
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
 

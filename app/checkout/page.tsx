@@ -7,11 +7,14 @@ import { useRouter } from 'next/navigation'
 import { useCart } from '@/components/cart-provider'
 import { useUser } from '@/hooks/use-user'
 import { createOrder } from '@/app/actions/create-order'
+import { createRazorpaySession } from '@/app/actions/create-razorpay-session'
+import type { PendingOrderPayload } from '@/app/actions/create-razorpay-session'
 import { getUserAddresses } from '@/app/actions/address'
 import type { SavedAddress } from '@/app/actions/address'
 import { validateCoupon, incrementCouponUsage } from '@/app/actions/coupon'
 import type { AppliedCoupon } from '@/app/actions/coupon'
-import { ChevronLeft, ChevronRight, Lock, Loader2, CreditCard, Truck, MapPin, Plus, Check, Tag, X } from 'lucide-react'
+import { checkCodStatus } from '@/app/actions/check-cod-status'
+import { ChevronLeft, ChevronRight, Lock, Loader2, CreditCard, Truck, MapPin, Plus, Check, Tag, X, Ban } from 'lucide-react'
 
 type Step = 'address' | 'payment'
 
@@ -23,6 +26,7 @@ export default function CheckoutPage() {
   const [step, setStep] = useState<Step>('address')
   const [isLoading, setIsLoading] = useState(false)
   const [paymentMethod, setPaymentMethod] = useState<'razorpay' | 'cod'>('razorpay')
+  const [codBlocked, setCodBlocked] = useState(false)
 
   // Address form state
   const [address, setAddress] = useState({
@@ -70,6 +74,15 @@ export default function CheckoutPage() {
   const [savedAddresses, setSavedAddresses] = useState<SavedAddress[]>([])
   const [selectedSavedId, setSelectedSavedId] = useState<string | null>(null)
   const [showNewForm, setShowNewForm] = useState(false)
+
+  // Fetch COD block status
+  useEffect(() => {
+    if (!user) return
+    checkCodStatus().then(({ blocked }) => {
+      setCodBlocked(blocked)
+      if (blocked) setPaymentMethod('razorpay')
+    })
+  }, [user])
 
   useEffect(() => {
     if (!user) return
@@ -135,42 +148,47 @@ export default function CheckoutPage() {
 
   const handlePlaceOrder = async () => {
     setIsLoading(true)
+
+    // Build the shared order payload (used for both COD and Razorpay)
+    const orderPayload: PendingOrderPayload = {
+      items: items.map((item) => ({
+        productId: item.product.id,
+        productTitle: item.product.name,
+        productImage: item.product.image,
+        price: item.product.price,
+        quantity: item.qty,
+      })),
+      shippingAddress: address,
+      subtotal,
+      tax,
+      total: finalTotal,
+      couponCode: appliedCoupon?.coupon.code,
+      couponDiscount,
+    }
+
     try {
-      const result = await createOrder({
-        items: items.map((item) => ({
-          productId: item.product.id,
-          productTitle: item.product.name,
-          productImage: item.product.image,
-          price: item.product.price,
-          quantity: item.qty,
-        })),
-        shippingAddress: address,
-        paymentMethod,
-        subtotal,
-        tax,
-        total: finalTotal,
-        couponCode: appliedCoupon?.coupon.code,
-        couponDiscount,
-      })
-
-      if (!result.success || !result.orderId) {
-        alert(result.error || 'Failed to create order. Please try again.')
-        return
-      }
-
-      // Increment coupon usage (non-fatal)
-      if (appliedCoupon) {
-        incrementCouponUsage(appliedCoupon.coupon.id).catch(() => {})
-      }
-
+      // --- COD: create order immediately ---
       if (paymentMethod === 'cod') {
+        const result = await createOrder({ ...orderPayload, paymentMethod: 'cod' })
+        if (!result.success || !result.orderId) {
+          alert(result.error || 'Failed to create order. Please try again.')
+          return
+        }
+        if (appliedCoupon) incrementCouponUsage(appliedCoupon.coupon.id).catch(() => {})
         clear()
         router.push(`/order-success?orderId=${result.orderId}`)
         return
       }
 
-      // --- Razorpay ---
-      // Load the checkout script if not already present
+      // --- Razorpay: create payment session first (no DB order yet) ---
+      const session = await createRazorpaySession(orderPayload)
+      if (!session.success) {
+        alert(session.error || 'Failed to initiate payment. Please try again.')
+        setIsLoading(false)
+        return
+      }
+
+      // Load Razorpay checkout script if not already present
       if (!(window as any).Razorpay) {
         await new Promise<void>((res, rej) => {
           const script = document.createElement('script')
@@ -185,14 +203,15 @@ export default function CheckoutPage() {
       const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID
       if (!razorpayKey) {
         alert('Payment gateway is not configured.')
+        setIsLoading(false)
         return
       }
 
       const options = {
         key: razorpayKey,
-        order_id: result.razorpayOrderId,
+        order_id: session.razorpayOrderId,
         name: 'Unaferia',
-        description: `Order ${result.orderNumber}`,
+        description: 'Order Payment',
         amount: Math.round(finalTotal * 100),
         currency: 'INR',
         prefill: {
@@ -205,23 +224,30 @@ export default function CheckoutPage() {
           razorpay_order_id: string
           razorpay_signature: string
         }) => {
-          // Verify on the server, then clear cart and redirect
-          await fetch('/api/verify-payment', {
+          // Payment succeeded — verify signature and create the DB order
+          const verifyRes = await fetch('/api/verify-payment', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_order_id: response.razorpay_order_id,
               razorpay_signature: response.razorpay_signature,
-              order_id: result.orderId,
+              orderPayload,
             }),
           })
+          const verifyData = await verifyRes.json()
+          if (!verifyData.success) {
+            alert('Payment verification failed. Please contact support.')
+            setIsLoading(false)
+            return
+          }
+          if (appliedCoupon) incrementCouponUsage(appliedCoupon.coupon.id).catch(() => {})
           clear()
-          router.push(`/order-success?orderId=${result.orderId}`)
+          router.push(`/order-success?orderId=${verifyData.orderId}`)
         },
         modal: {
-          // User closed the modal without paying — stay on checkout page
           ondismiss: () => {
+            // User closed the modal — no order was created, stay on checkout
             setIsLoading(false)
           },
         },
@@ -229,16 +255,16 @@ export default function CheckoutPage() {
 
       const rzp = new (window as any).Razorpay(options)
       rzp.on('payment.failed', () => {
+        // Payment failed — no order was created
         alert('Payment failed. Please try again.')
         setIsLoading(false)
       })
       rzp.open()
-      // Don't set isLoading=false here; modal is still open
+      // Don't set isLoading=false here — the modal is still open
       return
     } catch (err) {
       console.error('[checkout] place order error:', err)
       alert('Something went wrong. Please try again.')
-    } finally {
       setIsLoading(false)
     }
   }
@@ -524,20 +550,33 @@ export default function CheckoutPage() {
                       </div>
                     </label>
 
-                    <label className={`flex cursor-pointer gap-4 rounded-xl border-2 p-4 transition-colors ${paymentMethod === 'cod' ? 'border-brand bg-brand/5' : 'border-border hover:bg-muted'}`}>
-                      <input
-                        type="radio"
-                        name="payment"
-                        value="cod"
-                        checked={paymentMethod === 'cod'}
-                        onChange={() => setPaymentMethod('cod')}
-                        className="mt-0.5 accent-brand"
-                      />
-                      <div>
-                        <p className="font-semibold text-foreground">Cash on Delivery</p>
-                        <p className="mt-0.5 text-sm text-muted-foreground">Pay when your order is delivered</p>
+                    {codBlocked ? (
+                      <div className="flex items-start gap-4 rounded-xl border-2 border-dashed border-destructive/30 bg-destructive/5 p-4 opacity-80">
+                        <Ban className="mt-0.5 h-5 w-5 shrink-0 text-destructive" aria-hidden="true" />
+                        <div>
+                          <p className="font-semibold text-destructive">Cash on Delivery — Unavailable</p>
+                          <p className="mt-0.5 text-sm text-muted-foreground">
+                            COD has been disabled for your account because a previous COD order was cancelled.
+                            Please pay online to continue.
+                          </p>
+                        </div>
                       </div>
-                    </label>
+                    ) : (
+                      <label className={`flex cursor-pointer gap-4 rounded-xl border-2 p-4 transition-colors ${paymentMethod === 'cod' ? 'border-brand bg-brand/5' : 'border-border hover:bg-muted'}`}>
+                        <input
+                          type="radio"
+                          name="payment"
+                          value="cod"
+                          checked={paymentMethod === 'cod'}
+                          onChange={() => setPaymentMethod('cod')}
+                          className="mt-0.5 accent-brand"
+                        />
+                        <div>
+                          <p className="font-semibold text-foreground">Cash on Delivery</p>
+                          <p className="mt-0.5 text-sm text-muted-foreground">Pay when your order is delivered</p>
+                        </div>
+                      </label>
+                    )}
                   </div>
 
                   <button
