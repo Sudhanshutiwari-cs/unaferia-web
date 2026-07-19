@@ -115,9 +115,20 @@ CREATE TABLE IF NOT EXISTS public.profiles (
   phone       varchar(20),
   avatar_url  text,
   is_admin    boolean     DEFAULT false,
+  cod_blocked boolean     DEFAULT false,
   created_at  timestamptz DEFAULT now(),
   updated_at  timestamptz DEFAULT now()
 );
+
+-- Migration: add cod_blocked if it doesn't exist yet
+DO $$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'public' AND table_name = 'profiles' AND column_name = 'cod_blocked'
+  ) THEN
+    ALTER TABLE public.profiles ADD COLUMN cod_blocked boolean DEFAULT false;
+  END IF;
+END $$;
 
 -- 3.2 addresses
 CREATE TABLE IF NOT EXISTS public.addresses (

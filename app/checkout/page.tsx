@@ -11,7 +11,8 @@ import { getUserAddresses } from '@/app/actions/address'
 import type { SavedAddress } from '@/app/actions/address'
 import { validateCoupon, incrementCouponUsage } from '@/app/actions/coupon'
 import type { AppliedCoupon } from '@/app/actions/coupon'
-import { ChevronLeft, ChevronRight, Lock, Loader2, CreditCard, Truck, MapPin, Plus, Check, Tag, X } from 'lucide-react'
+import { checkCodStatus } from '@/app/actions/check-cod-status'
+import { ChevronLeft, ChevronRight, Lock, Loader2, CreditCard, Truck, MapPin, Plus, Check, Tag, X, Ban } from 'lucide-react'
 
 type Step = 'address' | 'payment'
 
@@ -23,6 +24,7 @@ export default function CheckoutPage() {
   const [step, setStep] = useState<Step>('address')
   const [isLoading, setIsLoading] = useState(false)
   const [paymentMethod, setPaymentMethod] = useState<'razorpay' | 'cod'>('razorpay')
+  const [codBlocked, setCodBlocked] = useState(false)
 
   // Address form state
   const [address, setAddress] = useState({
@@ -70,6 +72,15 @@ export default function CheckoutPage() {
   const [savedAddresses, setSavedAddresses] = useState<SavedAddress[]>([])
   const [selectedSavedId, setSelectedSavedId] = useState<string | null>(null)
   const [showNewForm, setShowNewForm] = useState(false)
+
+  // Fetch COD block status
+  useEffect(() => {
+    if (!user) return
+    checkCodStatus().then(({ blocked }) => {
+      setCodBlocked(blocked)
+      if (blocked) setPaymentMethod('razorpay')
+    })
+  }, [user])
 
   useEffect(() => {
     if (!user) return
@@ -524,20 +535,33 @@ export default function CheckoutPage() {
                       </div>
                     </label>
 
-                    <label className={`flex cursor-pointer gap-4 rounded-xl border-2 p-4 transition-colors ${paymentMethod === 'cod' ? 'border-brand bg-brand/5' : 'border-border hover:bg-muted'}`}>
-                      <input
-                        type="radio"
-                        name="payment"
-                        value="cod"
-                        checked={paymentMethod === 'cod'}
-                        onChange={() => setPaymentMethod('cod')}
-                        className="mt-0.5 accent-brand"
-                      />
-                      <div>
-                        <p className="font-semibold text-foreground">Cash on Delivery</p>
-                        <p className="mt-0.5 text-sm text-muted-foreground">Pay when your order is delivered</p>
+                    {codBlocked ? (
+                      <div className="flex items-start gap-4 rounded-xl border-2 border-dashed border-destructive/30 bg-destructive/5 p-4 opacity-80">
+                        <Ban className="mt-0.5 h-5 w-5 shrink-0 text-destructive" aria-hidden="true" />
+                        <div>
+                          <p className="font-semibold text-destructive">Cash on Delivery — Unavailable</p>
+                          <p className="mt-0.5 text-sm text-muted-foreground">
+                            COD has been disabled for your account because a previous COD order was cancelled.
+                            Please pay online to continue.
+                          </p>
+                        </div>
                       </div>
-                    </label>
+                    ) : (
+                      <label className={`flex cursor-pointer gap-4 rounded-xl border-2 p-4 transition-colors ${paymentMethod === 'cod' ? 'border-brand bg-brand/5' : 'border-border hover:bg-muted'}`}>
+                        <input
+                          type="radio"
+                          name="payment"
+                          value="cod"
+                          checked={paymentMethod === 'cod'}
+                          onChange={() => setPaymentMethod('cod')}
+                          className="mt-0.5 accent-brand"
+                        />
+                        <div>
+                          <p className="font-semibold text-foreground">Cash on Delivery</p>
+                          <p className="mt-0.5 text-sm text-muted-foreground">Pay when your order is delivered</p>
+                        </div>
+                      </label>
+                    )}
                   </div>
 
                   <button

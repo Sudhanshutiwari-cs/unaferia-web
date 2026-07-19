@@ -17,10 +17,10 @@ export async function cancelOrder(
     return { ok: false, error: 'You must be signed in to cancel an order.' }
   }
 
-  // Fetch the order to verify ownership and current status
+  // Fetch the order to verify ownership, current status, and payment method
   const { data: order, error: fetchError } = await supabase
     .from('orders')
-    .select('id, status, user_id')
+    .select('id, status, user_id, payment_method')
     .eq('id', orderId)
     .single()
 
@@ -51,6 +51,14 @@ export async function cancelOrder(
 
   if (updateError) {
     return { ok: false, error: updateError.message }
+  }
+
+  // If the cancelled order was COD, block COD for this customer going forward
+  if (order.payment_method === 'cod') {
+    await supabase
+      .from('profiles')
+      .update({ cod_blocked: true, updated_at: new Date().toISOString() })
+      .eq('id', user.id)
   }
 
   revalidatePath('/orders')
